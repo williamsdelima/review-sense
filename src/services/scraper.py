@@ -22,7 +22,7 @@ async def extract_article_content(url: str) -> str:
             )
          soup = BeautifulSoup(response.text, 'html.parser')
 
-         for element in soup(['script', 'style', 'nav', 'header', 'aside', 'form']): # Para esses elementos, "ignore"
+         for element in soup(['script', 'style', 'nav', 'header', 'aside', 'form']):
             element.decompose()
 
       article_body = soup.find('article') or soup.find('main') or soup.find('body')
