@@ -2,16 +2,6 @@
 
 API para extrair conteúdo textual de páginas web, gerar resumos estruturados com IA e armazenar os resultados em cache local. O projeto resolve o problema de transformar artigos ou páginas longas em uma resposta objetiva com título, resumo, principais insights e tempo estimado de leitura, evitando chamadas repetidas ao modelo para URLs já processadas.
 
-<!-- ## Demonstração
-
-Não identificado no projeto.
-
-O repositório não inclui imagens, GIFs, frontend próprio ou link de aplicação publicada. Caso uma interface ou deploy exista fora deste repositório, esta seção pode receber:
-
-- captura de tela da documentação interativa do FastAPI (`/docs`);
-- exemplo visual de uma chamada para `/api/v1/summarize`;
-- link da API publicada.
- -->
 ## Funcionalidades
 
 - Extração assíncrona de conteúdo a partir de uma URL informada.
@@ -106,16 +96,6 @@ O repositório contém apenas o backend. A comunicação é feita por HTTP/JSON.
 
 Não foi identificado frontend dentro deste projeto.
 
-### Gerenciamento de estado
-
-Não há estado de sessão no servidor. O principal estado persistente é o cache de resumos em SQLite, indexado pela URL.
-
-### Autenticação
-
-Não identificado no projeto.
-
-A API não implementa autenticação, autorização, tokens de usuário ou controle de acesso nas rotas.
-
 ### Consumo de APIs externas
 
 - O scraper consome páginas públicas usando `httpx.AsyncClient`.
@@ -182,22 +162,7 @@ A API ficará disponível em:
 - `http://127.0.0.1:8000`
 - `http://127.0.0.1:8000/docs`
 
-### Executar com Docker
-
-```bash
-docker build -t review-sense .
-docker run --rm -p 8000:8000 --env-file .env -v review-sense-data:/data review-sense
-```
-
 O volume montado em `/data` preserva o arquivo SQLite entre execuções do container.
-
-### Gerar build de produção
-
-Não há um comando de build Python separado definido no projeto. A forma de empacotamento identificada é a imagem Docker:
-
-```bash
-docker build -t review-sense .
-```
 
 ## Endpoints
 
@@ -286,9 +251,3 @@ review-sense/
 - Documentar exemplos reais de chamadas com `curl` ou coleção HTTP.
 - Configurar pipeline de CI para lint, testes e build Docker.
 - Definir uma estratégia para lidar com páginas protegidas, conteúdo dinâmico ou extração parcial.
-
-## Licença
-
-Não identificado no projeto.
-
-O repositório não contém arquivo de licença nem declaração de licença no `pyproject.toml`.

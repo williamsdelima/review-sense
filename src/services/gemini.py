@@ -22,8 +22,7 @@ async def generate_ai_summary(article_text: str) -> SummaryResponse:
     """
 
     try:
-        # FIX: Using 'client.aio' switches the SDK to native AsyncIO mode
-        # FIX: Using 'gemini-2.5-flash'
+
         response = await client.aio.models.generate_content(
             model='gemini-2.5-flash',
             contents=prompt,

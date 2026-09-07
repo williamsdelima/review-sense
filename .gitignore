@@ -12,3 +12,6 @@ wheels/
 
 # Credentials
 .env
+
+# Frontend build artifacts
+frontend/static/dist/
