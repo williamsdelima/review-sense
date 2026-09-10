@@ -15,9 +15,9 @@ client = genai.Client(api_key=settings.gemini_api_key)
 
 async def generate_ai_summary(article_text: str) -> SummaryResponse:
     prompt = f"""
-    You are an experienced software engineer and technical researcher.
-    Analyze the extracted web content below and generate a professional and highly accurate summary, using simple language.
-    Source Text:
+    You are an enthusiastic researcher.
+    Analyze the web content extracted below and draft a professional, highly accurate summary using simple language.
+    Source text:
     {article_text}
     """
 
