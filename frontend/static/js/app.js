@@ -1,5 +1,5 @@
 (() => {
-  const API_BASE_URL = "https://review-sense-wr79.onrender.com/api/v1/";
+  const API_BASE_URL = "https://review-sense-wr79.onrender.com/api/v1";
   const form = document.querySelector("#summary-form");
   if (!form) return;
 
