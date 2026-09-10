@@ -1,7 +1,112 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}Review Sense — Resuma conteúdos{%
+endblock %} {% block content %}
+<section class="hero" aria-labelledby="page-title">
+  <div class="hero__orb hero__orb--one" aria-hidden="true"></div>
+  <div class="hero__orb hero__orb--two" aria-hidden="true"></div>
+  <div class="hero__content">
+    <p class="eyebrow">
+      <span class="eyebrow__spark">✦</span> leitura inteligente
+    </p>
+    <h1 id="page-title">Entenda mais.<br /><em>Leia menos.</em></h1>
+    <p class="hero__description">
+      Transforme artigos extensos em resumos claros, com os pontos que realmente
+      importam.
+    </p>
 
-{% block title %}Review Sense — Resuma conteúdos{% endblock %}
+    <form id="summary-form" class="summary-form" novalidate>
+      <label class="sr-only" for="article-url">Link do artigo</label>
+      <div class="summary-form__field">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path
+            d="M10.6 13.4a5 5 0 0 0 7.07.07l2.12-2.12a5 5 0 0 0-7.07-7.07l-1.21 1.2M13.4 10.6a5 5 0 0 0-7.07-.07L4.21 12.65a5 5 0 0 0 7.07 7.07l1.21-1.2"
+          />
+        </svg>
+        <input
+          id="article-url"
+          name="url"
+          type="url"
+          autocomplete="url"
+          inputmode="url"
+          required
+          placeholder="Cole o link de um artigo aqui..."
+        />
+      </div>
+      <button id="submit-button" type="submit">
+        <span class="button__default"
+          ><svg aria-hidden="true" viewBox="0 0 24 24">
+            <path
+              d="m12 3-1.9 5.1L5 10l5.1 1.9L12 17l1.9-5.1L19 10l-5.1-1.9L12 3Z"
+            />
+            <path
+              d="m19 15-.8 2.2L16 18l2.2.8L19 21l.8-2.2L22 18l-2.2-.8L19 15Z"
+            />
+          </svg>
+          Resumir agora</span
+        >
+        <span class="button__loading" hidden
+          ><span class="spinner"></span> Analisando</span
+        >
+      </button>
+    </form>
+    <p class="form-note">
+      <span>↳</span> Funciona com artigos, notícias, posts e páginas públicas.
+    </p>
+    <p id="form-error" class="form-error" role="alert" hidden></p>
+  </div>
+</section>
 
-{% block content %}
-  {# TODO: adicionar formulário para URL, estados de carregamento e feedback. #}
+<section class="how-it-works" aria-labelledby="how-title">
+  <div class="section-heading">
+    <p class="eyebrow">simples assim</p>
+    <h2 id="how-title">Do link ao essencial<br />em poucos segundos.</h2>
+  </div>
+  <ol class="steps">
+    <li>
+      <span class="step-number">01</span>
+      <div class="step-icon">↗</div>
+      <h3>Envie o link</h3>
+      <p>Cole a URL de qualquer conteúdo que você queira entender melhor.</p>
+    </li>
+    <li>
+      <span class="step-number">02</span>
+      <div class="step-icon">✦</div>
+      <h3>A IA trabalha</h3>
+      <p>Nossa inteligência lê, interpreta e separa o que é relevante.</p>
+    </li>
+    <li>
+      <span class="step-number">03</span>
+      <div class="step-icon">✓</div>
+      <h3>Fique por dentro</h3>
+      <p>Receba um resumo objetivo e os principais insights do conteúdo.</p>
+    </li>
+  </ol>
+</section>
+
+<section id="result" class="result" aria-live="polite" hidden>
+  <div class="result__topline">
+    <span>✦ análise pronta</span><span id="reading-time"></span>
+  </div>
+  <div class="result__header">
+    <h2 id="result-title"></h2>
+    <div
+      id="language-switcher"
+      class="language-switcher"
+      aria-label="Traduzir resumo"
+    >
+      <span>◎</span><button type="button" data-language="pt">PT</button
+      ><button type="button" data-language="en">EN</button
+      ><button type="button" data-language="es">ES</button>
+    </div>
+  </div>
+  <div class="result__grid">
+    <article>
+      <h3>Resumo</h3>
+      <p id="result-summary"></p>
+    </article>
+    <aside>
+      <h3>Pontos principais</h3>
+      <ul id="takeaways"></ul>
+    </aside>
+  </div>
+</section>
 {% endblock %}
