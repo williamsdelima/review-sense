@@ -1,9 +1,8 @@
-"""Configurações do frontend lidas do ambiente.
+import os
 
-Variáveis previstas:
-- FLASK_SECRET_KEY: chave para sessão e proteção CSRF;
-- BACKEND_API_URL: URL privada da API FastAPI no Render;
-- BACKEND_API_TIMEOUT_SECONDS: limite de espera das chamadas à API.
-"""
 
-# TODO: definir a classe de configuração Flask.
+class Config:
+
+    SECRET_KEY = os.environ.get("FLASK_SECRET_KEY", "c6a13df44d13eadab7e86a0c5910e8e428cd4ea93e30a980a3d121b080e3733a")
+    BACKEND_API_URL = os.environ.get("BACKEND_API_URL", "http://127.0.0.1:8000").rstrip("/")
+    BACKEND_API_TIMEOUT_SECONDS = int(os.environ.get("BACKEND_API_TIMEOUT_SECONDS", 30))
