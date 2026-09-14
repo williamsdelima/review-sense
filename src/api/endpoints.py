@@ -19,19 +19,26 @@ class TranslationRequest(BaseModel):
     url: HttpUrl
     target_language: str
 
+
 class SummaryRequest(BaseModel):
     url: HttpUrl
 
 
-
 executor = ThreadPoolExecutor(max_workers=3)
 
-def _execute_translation(text: str, target_lang: str) -> str:
-    return GT(source="auto", target=target_lang).translate(text)
 
-async def translate_text(text: str, target_lang: str) -> str:
+def _execute_batch_translation(texts: list[str], target_lang: str) -> list[str]:
+    """Executa a tradução de uma lista de textos em uma única requisição HTTP."""
+    return GT(source="auto", target=target_lang).translate_batch(texts)
+
+
+async def translate_batch_async(texts: list[str], target_lang: str) -> list[str]:
+    """Executa a tradução em lote de forma assíncrona utilizando a ThreadPool."""
     loop = asyncio.get_running_loop()
-    return await loop.run_in_executor(executor, _execute_translation, text, target_lang)
+    return await loop.run_in_executor(
+        executor, _execute_batch_translation, texts, target_lang
+    )
+
 
 @router.post(
     "/summarize",
@@ -91,13 +98,13 @@ async def translate_cached_summary(payload: TranslationRequest, db: AsyncSession
         )
 
     try:
-        translated_title = await translate_text(cached.title, payload.target_language)
-        translated_summary = await translate_text(cached.summary, payload.target_language)
+        all_texts = [cached.title, cached.summary] + list(cached.key_takeaways)
 
-        translated_takeaways = []
-        for item in cached.key_takeaways:
-            translated_item = await translate_text(item, payload.target_language)
-            translated_takeaways.append(translated_item)
+        translated_batch = await translate_batch_async(all_texts, payload.target_language)
+
+        translated_title = translated_batch[0]
+        translated_summary = translated_batch[1]
+        translated_takeaways = translated_batch[2:]
 
         return {
             "title": translated_title,
